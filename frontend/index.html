@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Tienda de Celulares</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --azul: #2563eb;
+      --azul-oscuro: #1e40af;
+      --azul-suave: #eaf2ff;
+      --fondo: #f3f7fc;
+      --borde: #d7e1ee;
+      --texto: #111827;
+      --gris: #5b677a;
+      --verde: #16a34a;
+      --naranjo: #f59e0b;
+      --rojo: #dc2626;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      background: var(--fondo);
+      color: var(--texto);
+    }
+
+    .layout {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 230px 1fr;
+    }
+
+    aside {
+      background: linear-gradient(180deg, #eef6ff 0%, #f8fbff 100%);
+      border-right: 1px solid var(--borde);
+      padding: 34px 24px;
+    }
+
+    .brand {
+      text-align: center;
+      margin-bottom: 38px;
+    }
+
+    .phone-icon {
+      width: 48px;
+      height: 72px;
+      margin: 0 auto 18px;
+      border: 4px solid var(--azul);
+      border-radius: 12px;
+      background: linear-gradient(160deg, #dbeafe, #ffffff);
+      position: relative;
+    }
+
+    .phone-icon::after {
+      content: "";
+      width: 10px;
+      height: 4px;
+      border-radius: 20px;
+      background: var(--azul);
+      position: absolute;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+    }
+
+    .brand h1 {
+      font-size: 32px;
+      line-height: 1.15;
+      margin: 0;
+      color: #0f172a;
+    }
+
+    .brand h1 span {
+      color: var(--azul);
+    }
+
+    .brand-line {
+      width: 56px;
+      height: 4px;
+      border-radius: 99px;
+      background: var(--azul);
+      margin: 22px auto 0;
+    }
+
+    nav {
+      margin-top: 18px;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: #dceafe;
+      color: var(--azul-oscuro);
+      border-radius: 8px;
+      font-weight: 700;
+      box-shadow: inset 3px 0 0 var(--azul);
+    }
+
+    .sidebar-note {
+      margin-top: 36px;
+      padding: 18px;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      background: white;
+      color: var(--gris);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .main-content {
+      padding: 34px 42px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--borde);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.07);
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 24px;
+    }
+
+    .section-subtitle {
+      margin: 0;
+      color: var(--gris);
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      padding: 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: #fbfdff;
+    }
+
+    .stat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 22px;
+      background: var(--azul-suave);
+    }
+
+    .stat-card:nth-child(2) .stat-icon { background: #dcfce7; }
+    .stat-card:nth-child(3) .stat-icon { background: #fef3c7; }
+
+    .stat-label {
+      color: var(--gris);
+      font-size: 0.92rem;
+    }
+
+    .stat-value {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--azul);
+      margin-top: 2px;
+    }
+
+    .stat-card:nth-child(2) .stat-value { color: var(--verde); }
+    .stat-card:nth-child(3) .stat-value { color: var(--naranjo); }
+
+    .actions {
+      margin-bottom: 16px;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin-right: 8px;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+      background: var(--azul);
+      color: white;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      filter: brightness(0.95);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: #6b7280;
+    }
+
+    button.danger {
+      background: var(--rojo);
+    }
+
+    .btn-editar {
+      background: #f59e0b;
+      color: #111827;
+    }
+
+    .btn-eliminar {
+      background: var(--rojo);
+      color: white;
+    }
+
+    .table-wrap {
+      border: 1px solid var(--borde);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 13px 12px;
+      text-align: left;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    th {
+      background: #dbeafe;
+      color: #0f172a;
+      font-weight: 800;
+    }
+
+    tr:nth-child(even) {
+      background: #f9fafb;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .empty-row {
+      text-align: center;
+      color: var(--gris);
+      padding: 28px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 7px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 7px;
+      border: 1px solid #cbd5e1;
+      box-sizing: border-box;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.95rem;
+      background: #fbfdff;
+    }
+
+    input:focus, textarea:focus {
+      outline: none;
+      border-color: var(--azul);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+    }
+
+    .status {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      display: none;
+    }
+
+    .status.ok {
+      display: block;
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+    }
+
+    .status.error {
+      display: block;
+      color: #991b1b;
+      background: #fee2e2;
+      border: 1px solid #fca5a5;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--gris);
+      font-size: 0.85rem;
+      padding: 8px 0 20px;
+    }
+
+    @media (max-width: 900px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        border-right: none;
+        border-bottom: 1px solid var(--borde);
+        padding: 22px;
+      }
+
+      .brand h1 {
+        font-size: 26px;
+      }
+
+      .sidebar-note {
+        display: none;
+      }
+
+      .main-content {
+        padding: 22px;
+      }
+
+      .stats, .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .section-header {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <div class="brand">
+        <div class="phone-icon" aria-hidden="true"></div>
+        <h1>Tienda de <span>Celulares</span></h1>
+        <div class="brand-line"></div>
+      </div>
+
+      <nav>
+        <div class="nav-item">🏠 <span>Inicio</span></div>
+      </nav>
+
+      <div class="sidebar-note">
+        Panel simple para administrar celulares disponibles en la tienda.
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <section class="card">
+        <div class="section-header">
+          <div>
+            <h2>Productos registrados</h2>
+            <p class="section-subtitle">Listado de celulares disponibles en la tienda.</p>
+          </div>
+          <button id="btnCargar">Actualizar listado</button>
+        </div>
+
+        <div class="stats">
+          <div class="stat-card">
+            <div class="stat-icon">📱</div>
+            <div>
+              <div class="stat-label">Total de productos</div>
+              <div class="stat-value" id="totalProductos">0</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🧰</div>
+            <div>
+              <div class="stat-label">Stock acumulado</div>
+              <div class="stat-value" id="stockAcumulado">0</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💲</div>
+            <div>
+              <div class="stat-label">Precio promedio</div>
+              <div class="stat-value" id="precioPromedio">$0</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyProductos">
+              <tr>
+                <td colspan="6" class="empty-row">Cargando productos...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2 id="formTitle">Nuevo producto</h2>
+        <p class="section-subtitle">Completa los datos del celular para agregarlo o editarlo.</p>
+
+        <div class="form-grid">
+          <div>
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" placeholder="Ej: Samsung Galaxy A55" />
+          </div>
+          <div>
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" rows="2" placeholder="Ej: 256GB, color negro"></textarea>
+          </div>
+          <div>
+            <label for="precio">Precio</label>
+            <input type="number" id="precio" step="0.01" min="0" placeholder="Ej: 299990" />
+          </div>
+          <div>
+            <label for="stock">Stock</label>
+            <input type="number" id="stock" min="0" placeholder="Ej: 10" />
+          </div>
+        </div>
+
+        <div class="actions" style="margin-top: 20px;">
+          <button id="btnGuardar">Guardar producto</button>
+          <button id="btnCancelar" class="secondary">Limpiar formulario</button>
+        </div>
+        <div id="status" class="status"></div>
+      </section>
+
+      <footer>Tienda de Celulares</footer>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
